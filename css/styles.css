@@ -14,7 +14,7 @@ body {
   background-repeat: repeat;
   background-size: auto;
   min-height: 100vh;
-  padding: 3rem 1.5rem 3rem;
+  padding: 2rem 1.5rem 3rem;
   color: #2E2E3A;
   font-family: "DM Sans", sans-serif;
   font-size: 1.25rem;
@@ -362,7 +362,13 @@ header .logo {
   will-change: transform;
 }
 .testimonials .testimonial {
-  flex: 0 0 calc(33.33% - 1rem);
+  flex: 0 0 100%;
+  box-sizing: border-box;
+}
+@media (min-width: 48em) {
+  .testimonials .testimonial {
+    flex: 0 0 calc(33.33% - 1rem);
+  }
 }
 .testimonials video {
   width: 100%;
@@ -466,6 +472,7 @@ header .logo {
   justify-content: space-between;
   cursor: pointer;
   margin: 0 0 0.5rem;
+  text-align: left;
 }
 .faq-item:hover {
   background: rgba(248, 247, 249, 0.02);

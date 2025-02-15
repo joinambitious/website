@@ -45,7 +45,7 @@ body {
     background-repeat: repeat;
     background-size: auto;
     min-height: 100vh;
-    padding: $spacer-md $spacer-sm $spacer-md;    
+    padding: 2rem $spacer-sm $spacer-md;    
     color: $dark;
     font-family: $font-primary;
     font-size: 1.25rem;
@@ -385,7 +385,11 @@ header {
     }
     .testimonial {
         @extend .box;
-        flex: 0 0 calc(33.33% - 1rem); // Max of 3 items visible at once
+        flex: 0 0 100%;
+        box-sizing: border-box;
+        @media (min-width: $desktop) {
+            flex: 0 0 calc(33.33% - 1rem);
+        }
     }
     video {
         width: 100%;
@@ -501,6 +505,7 @@ header {
     justify-content: space-between;
     cursor: pointer;
     margin: 0 0 $spacer-xs;
+    text-align: left;
     @extend .box;
     &:hover {
         background: rgba($light, 0.02);
