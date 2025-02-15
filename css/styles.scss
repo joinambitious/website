@@ -136,7 +136,7 @@ section {
     position: relative;
     display: block;
     position: relative;
-    margin-top: 0.5rem;
+    margin-top: $spacer-sm;
     padding: 1rem 1.5rem;
     color: $light;
     border: $border-style;
@@ -155,6 +155,8 @@ section {
         display: inline-block;
         vertical-align: middle;
         margin-left: 0.5rem;
+        font-variation-settings:
+        'wght' 400,
     }
 }
 
@@ -211,7 +213,7 @@ section {
             margin-bottom: $spacer-xs;
         }
         h1 + p {
-            margin-top: 0;
+            margin: 0;
         }
         .highlight {
             display: inline-block;
@@ -235,7 +237,7 @@ section {
         }
         @media (min-width: $desktop) {
             display: grid;
-            grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
             gap: 2rem;   
         }        
     }
@@ -384,6 +386,7 @@ section {
             }
             &:hover {
                 opacity: 0.6;
+                background: none;
             }
         }
         .material-symbols-outlined {
