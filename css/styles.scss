@@ -5,13 +5,17 @@
 
 // Colors
 $dark: #2E2E3A; // Rich Black #14141C / Raisin Black #2E2E3A / Eery Black #1E1F1F
-$light: #F8F7F9; // Mint Cream #EBF5EE / Sea Salt #F8F7F9
+$light: #F8F7F9;
 $brand: #F7A278; // Satin Sheen Gold #CBA135 / Gold #E2C044 / Sandy Brown: #FFA552 / Atomic Tangerine: #DE8F6E
 $background-color: $light;
+$brand-gradient: linear-gradient(to right, mix(white, $brand, 16%) 0%, $brand 100%);
 
 // Fonts
 $font-primary: 'DM Sans', sans-serif;
 $font-secondary: 'DM Mono', monospace;
+
+$h1-font-size: 4.5rem;
+$h1-line-height: 4.25rem;
 
 // Spacing
 $spacer-xl: 8rem;
@@ -32,7 +36,7 @@ html, body {
 }
 
 // Breakpoints
-$mobile: 24em;
+$mobile: 32em;
 $desktop: 48em;
 
 body {
@@ -40,14 +44,15 @@ body {
     background-image: url('../img/circle-grid-bg.svg');
     background-repeat: repeat;
     background-size: auto;
+    min-height: 100vh;
+    padding: $spacer-md $spacer-sm $spacer-md;    
     color: $dark;
     font-family: $font-primary;
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1.75rem;
     letter-spacing: -0.01em;
-    min-height: 100vh;
-    padding: $spacer-md $spacer-sm $spacer-md;
+    text-align: center;
     @media (min-width: $desktop) {
         padding: $spacer-lg $spacer-lg $spacer-md;
     }
@@ -68,8 +73,8 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 4.5rem;
-    line-height: 4.25rem;
+    font-size: $h1-font-size;
+    line-height: $h1-line-height;
     margin: 2rem 0 1rem;
 }
 
@@ -141,7 +146,7 @@ section {
     color: $light;
     border: $border-style;
     border-radius: $border-radius;
-    background: linear-gradient(to right, mix(white, $brand, 16%) 0%, $brand 100%);
+    background: $brand-gradient;
     box-shadow: 0rem 0.25rem 0rem rgba($brand, 0.2);
     @media (min-width: $desktop) {
         display: inline-block;
@@ -207,21 +212,32 @@ section {
     100% { opacity: 0; transform: translateY(-100%); }
 }
 
+// HEADER
+
+header {
+    .logo {
+        margin: 0 auto;
+    }
+}
+
+// HERO
+
 .hero {
     .hero-content {
-        h1 {
-            margin-bottom: $spacer-xs;
-        }
         h1 + p {
             margin: 0;
         }
         .highlight {
             display: inline-block;
             position: relative;
-            width: 350px;
+            width: 310px;
             height: 5rem;
             overflow: hidden;
-            vertical-align: bottom;
+            vertical-align: middle;
+            text-align: left;
+            @media (max-width: $mobile) {
+                text-align: center;
+            }
             span {
                 display: block;
                 position: absolute;
@@ -230,26 +246,38 @@ section {
                 opacity: 0;
                 transform: translateY(100%);
                 animation: rotateWords 6s infinite ease-in-out;
+                text-align: left;
+                @media (max-width: $mobile) {
+                    text-align: center;
+                }
                 &:nth-child(1) { animation-delay: 0s; }
                 &:nth-child(2) { animation-delay: 2s; }
                 &:nth-child(3) { animation-delay: 4s; }
             }
-        }
-        @media (min-width: $desktop) {
-            display: grid;
-            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-            gap: 2rem;   
-        }        
+        }   
     }
     .hero-video {
-        margin: 1.5rem auto;
+        @extend .box;
+        position: relative;
+        margin-top: $spacer-sm;
+        @media (min-width: $desktop) {
+            margin-top: $spacer-md;
+        }  
         video {
             border: $border-style;
-            margin-top: 2rem;
             box-shadow: 0rem 0.5rem 2rem rgba($dark, 0.2);
+            margin: 0 auto;
             @media (min-width: $desktop) {
-                margin-top: 0;
-            } 
+                max-width: 75%;
+            }  
+        }
+        .button {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: 0;
+            transform: translate(-50%, -50%);
+            z-index: 10;
         }
     }
 }
@@ -310,6 +338,9 @@ section {
 }
 */
 
+
+// STRUCTURE
+
 .structure {
     .steps {
         @media (min-width: $desktop) {
@@ -323,6 +354,8 @@ section {
             .material-symbols-outlined {
                 vertical-align: middle;
                 color: $brand;
+                font-variation-settings:
+                'FILL' 1
             }
             @media (min-width: $desktop) {
                 margin: 0;
@@ -332,10 +365,62 @@ section {
     }
 }
 
-.testimonial-box {
-    margin: 0 auto;
-    @extend .box;
+
+// TESTIMONIALS
+
+.testimonials {
+    .carousel-container {
+        position: relative;
+        margin: auto;
+        overflow: hidden;
+    }
+    .carousel {
+        display: flex;
+        gap: 1rem;
+        transition: transform 0.4s ease-in-out;
+        will-change: transform;
+    }
+    .testimonial {
+        @extend .box;
+        flex: 0 0 calc(33.33% - 1rem); // Max of 3 items visible at once
+    }
+    video {
+        width: 100%;
+        border-radius: $border-radius;
+    }
+    .carousel-btn {
+        @extend .button;
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: background 0.3s ease-in-out;
+        z-index: 10;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        .material-symbols-outlined {
+            margin: 0;
+            font-size: 2rem;
+            font-variation-settings:
+            'wght' 300,
+        }
+        &.left {
+            left: $spacer-sm;
+        }
+
+        &.right {
+            right: $spacer-sm;
+        }
+    }
 }
+
+
+// BENEFITS
 
 .benefits {
     ul {
@@ -349,6 +434,7 @@ section {
         li {
             display: block;
             margin: $spacer-xs 0;
+            text-align: left;
             @extend .box;
             &:before {
                 content: "check_circle";
@@ -367,6 +453,8 @@ section {
         }
     }
 }
+
+// PARTNERS
 
 .partners {
     h2 {
@@ -390,15 +478,20 @@ section {
             }
         }
         .material-symbols-outlined {
-            float: right;
-            margin-left: 1rem;
             color: $brand;
+            margin-bottom: $spacer-sm;
+            @media (min-width: $desktop) {
+                float: right;
+                margin: 0 0 0 $spacer-sm;
+            }
             font-variation-settings:
                 'FILL' 1
         }
     }    
 }
 
+
+// FAQ
 
 .faq-item {
     display: flex;
