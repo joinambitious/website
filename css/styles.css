@@ -264,12 +264,17 @@ header .logo {
   }
 }
 .hero .hero-video .button, .hero .hero-video .testimonials .carousel-btn, .testimonials .hero .hero-video .carousel-btn {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin: 0;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+  margin-top: 1rem;
+}
+@media (min-width: 48em) {
+  .hero .hero-video .button, .hero .hero-video .testimonials .carousel-btn, .testimonials .hero .hero-video .carousel-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
 }
 
 .features-grid .material-symbols-outlined, .structure .material-symbols-outlined, .partners .material-symbols-outlined {
