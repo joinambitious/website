@@ -6,7 +6,7 @@
 // Colors
 $dark: #2E2E3A; // Rich Black #14141C / Raisin Black #2E2E3A / Eery Black #1E1F1F
 $light: #F8F7F9;
-$brand: #F7A278; // Satin Sheen Gold #CBA135 / Gold #E2C044 / Sandy Brown: #FFA552 / Atomic Tangerine: #DE8F6E
+$brand: #F7A278;
 $background-color: $light;
 $brand-gradient: linear-gradient(to right, mix(white, $brand, 16%) 0%, $brand 100%);
 
@@ -29,15 +29,19 @@ $background-style: rgba($dark, 0.02);
 $border-style: 1px solid rgba($dark, 0.06);
 $border-radius: 0.5rem;
 
+// Breakpoints
+$mobile: 32em;
+$desktop: 48em;
+
+
+// Transitions
+$transition-time: 0.2s;
+
 html, body {
     overflow: visible;
     margin: 0;
     padding: 0;
 }
-
-// Breakpoints
-$mobile: 32em;
-$desktop: 48em;
 
 body {
     background-color: $background-color;
@@ -61,7 +65,7 @@ body {
 a {
     color: $brand;
     text-decoration: none;
-    transition: all 0.25s ease-in-out;
+    transition: all $transition-time ease-in-out;
     &:hover {
         background: rgba($brand, 0.15);
     }
@@ -203,15 +207,6 @@ section {
     -webkit-text-fill-color: transparent;
 }
 
-
-@keyframes rotateWords {
-    0% { opacity: 0; transform: translateY(100%); }
-    10% { opacity: 1; transform: translateY(0%); }
-    30% { opacity: 1; transform: translateY(0%); }
-    40% { opacity: 0; transform: translateY(-100%); }
-    100% { opacity: 0; transform: translateY(-100%); }
-}
-
 // HEADER
 
 header {
@@ -221,6 +216,14 @@ header {
 }
 
 // HERO
+
+@keyframes rotateWords {
+    0% { opacity: 0; transform: translateY(100%); }
+    10% { opacity: 1; transform: translateY(0%); }
+    30% { opacity: 1; transform: translateY(0%); }
+    40% { opacity: 0; transform: translateY(-100%); }
+    100% { opacity: 0; transform: translateY(-100%); }
+}
 
 .hero {
     .hero-content {
@@ -357,8 +360,6 @@ header {
             .material-symbols-outlined {
                 vertical-align: middle;
                 color: $brand;
-                font-variation-settings:
-                'FILL' 1
             }
             @media (min-width: $desktop) {
                 margin: 0;
@@ -379,7 +380,7 @@ header {
     }
     .carousel {
         display: flex;
-        gap: 1rem;
+        gap: $spacer-sm;
         transition: transform 0.4s ease-in-out;
         will-change: transform;
     }
@@ -405,7 +406,7 @@ header {
         border: none;
         cursor: pointer;
         border-radius: 50%;
-        transition: background 0.3s ease-in-out;
+        transition: background $transition-time ease-in-out;
         z-index: 10;
         text-align: center;
         margin: 0;
@@ -413,8 +414,6 @@ header {
         .material-symbols-outlined {
             margin: 0;
             font-size: 2rem;
-            font-variation-settings:
-            'wght' 300,
         }
         &.left {
             left: $spacer-sm;
@@ -436,7 +435,7 @@ header {
         @media (min-width: $desktop) {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: $spacer-xs;   
+            gap: $spacer-sm;   
         }
         li {
             display: block;
@@ -480,7 +479,7 @@ header {
                 margin: 0 1.5rem 1.5rem 0;
             }
             &:hover {
-                opacity: 0.6;
+                filter: invert(76%) sepia(34%) saturate(421%) hue-rotate(325deg) brightness(96%) contrast(89%);
                 background: none;
             }
         }
@@ -501,25 +500,58 @@ header {
 // FAQ
 
 .faq-item {
-    display: flex;
-    justify-content: space-between;
     cursor: pointer;
     margin: 0 0 $spacer-xs;
     text-align: left;
+    position: relative;
+    overflow: hidden;
     @extend .box;
-    &:hover {
-        background: rgba($light, 0.02);
+    @media (min-width: $desktop) {
+        margin-bottom: $spacer-sm;
     }
-    &:after {
-        content: "expand_circle_down";
-        display: inline-block;
-        font-family: 'Material Symbols Outlined';
-        font-size: 1.5rem;
-        margin-right: $spacer-xs;
-        vertical-align: middle;
-        color: $brand;
-        font-variation-settings:
-        'FILL' 1
+    .faq-question {
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+        &:after {
+            content: "expand_circle_down";
+            display: inline-block;
+            font-family: 'Material Symbols Outlined';
+            font-size: 1.5rem;
+            margin-right: $spacer-xs;
+            vertical-align: middle;
+            color: $brand;
+            font-variation-settings:
+            'wght' 300,
+            'FILL' 1
+        }
+    }
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all $transition-time ease-out;
+        margin: 0;
+    }
+    &:hover {
+        .faq-question {
+            color: $brand;
+        }
+    }
+    &.active {
+        .faq-question {
+            color: $brand;
+            &:after {
+                transform: rotate(180deg);
+                font-variation-settings:
+                'wght' 300,                
+                'FILL' 0
+            }
+        }
+        .faq-answer {
+            opacity: 1;
+            padding-top: $spacer-sm;
+        }
     }
 }
 

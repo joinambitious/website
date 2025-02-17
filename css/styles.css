@@ -32,7 +32,7 @@ body {
 a {
   color: #F7A278;
   text-decoration: none;
-  transition: all 0.25s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 a:hover {
   background: rgba(247, 162, 120, 0.15);
@@ -177,6 +177,10 @@ section {
   -webkit-text-fill-color: transparent;
 }
 
+header .logo {
+  margin: 0 auto;
+}
+
 @keyframes rotateWords {
   0% {
     opacity: 0;
@@ -199,10 +203,6 @@ section {
     transform: translateY(-100%);
   }
 }
-header .logo {
-  margin: 0 auto;
-}
-
 .hero .hero-content h1 + p {
   margin: 0;
 }
@@ -342,7 +342,6 @@ header .logo {
 .structure .steps .step .material-symbols-outlined {
   vertical-align: middle;
   color: #F7A278;
-  font-variation-settings: "FILL" 1;
 }
 @media (min-width: 48em) {
   .structure .steps .step {
@@ -357,7 +356,7 @@ header .logo {
 }
 .testimonials .carousel {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   transition: transform 0.4s ease-in-out;
   will-change: transform;
 }
@@ -383,7 +382,7 @@ header .logo {
   border: none;
   cursor: pointer;
   border-radius: 50%;
-  transition: background 0.3s ease-in-out;
+  transition: background 0.2s ease-in-out;
   z-index: 10;
   text-align: center;
   margin: 0;
@@ -392,7 +391,6 @@ header .logo {
 .testimonials .carousel-btn .material-symbols-outlined {
   margin: 0;
   font-size: 2rem;
-  font-variation-settings: "wght" 300;
 }
 .testimonials .carousel-btn.left {
   left: 1.5rem;
@@ -409,7 +407,7 @@ header .logo {
   .benefits ul {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
+    gap: 1.5rem;
   }
 }
 .benefits ul li {
@@ -452,7 +450,7 @@ header .logo {
   }
 }
 .partners .partner-logos a:hover {
-  opacity: 0.6;
+  filter: invert(76%) sepia(34%) saturate(421%) hue-rotate(325deg) brightness(96%) contrast(89%);
   background: none;
 }
 .partners .partner-logos .material-symbols-outlined {
@@ -468,16 +466,23 @@ header .logo {
 }
 
 .faq-item {
-  display: flex;
-  justify-content: space-between;
   cursor: pointer;
   margin: 0 0 0.5rem;
   text-align: left;
+  position: relative;
+  overflow: hidden;
 }
-.faq-item:hover {
-  background: rgba(248, 247, 249, 0.02);
+@media (min-width: 48em) {
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
 }
-.faq-item:after {
+.faq-item .faq-question {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+.faq-item .faq-question:after {
   content: "expand_circle_down";
   display: inline-block;
   font-family: "Material Symbols Outlined";
@@ -485,7 +490,28 @@ header .logo {
   margin-right: 0.5rem;
   vertical-align: middle;
   color: #F7A278;
-  font-variation-settings: "FILL" 1;
+  font-variation-settings: "wght" 300, "FILL" 1;
+}
+.faq-item .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.2s ease-out;
+  margin: 0;
+}
+.faq-item:hover .faq-question {
+  color: #F7A278;
+}
+.faq-item.active .faq-question {
+  color: #F7A278;
+}
+.faq-item.active .faq-question:after {
+  transform: rotate(180deg);
+  font-variation-settings: "wght" 300, "FILL" 0;
+}
+.faq-item.active .faq-answer {
+  opacity: 1;
+  padding-top: 1.5rem;
 }
 
 footer {
