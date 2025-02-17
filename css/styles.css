@@ -480,6 +480,7 @@ header .logo {
 .faq-item .faq-question {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   margin: 0;
 }
 .faq-item .faq-question:after {
@@ -487,8 +488,6 @@ header .logo {
   display: inline-block;
   font-family: "Material Symbols Outlined";
   font-size: 1.5rem;
-  margin-right: 0.5rem;
-  vertical-align: middle;
   color: #F7A278;
   font-variation-settings: "wght" 300, "FILL" 1;
 }

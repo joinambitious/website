@@ -512,14 +512,13 @@ header {
     .faq-question {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
         margin: 0;
         &:after {
             content: "expand_circle_down";
             display: inline-block;
             font-family: 'Material Symbols Outlined';
             font-size: 1.5rem;
-            margin-right: $spacer-xs;
-            vertical-align: middle;
             color: $brand;
             font-variation-settings:
             'wght' 300,
