@@ -14,9 +14,6 @@ $brand-gradient: linear-gradient(to right, mix(white, $brand, 16%) 0%, $brand 10
 $font-primary: 'DM Sans', sans-serif;
 $font-secondary: 'DM Mono', monospace;
 
-$h1-font-size: 4.5rem;
-$h1-line-height: 4.25rem;
-
 // Spacing
 $spacer-xl: 8rem;
 $spacer-lg: 6rem;
@@ -73,19 +70,28 @@ a {
 
 h1, h2, h3 {
     font-weight: 500;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
 }
 
 h1 {
-    font-size: $h1-font-size;
-    line-height: $h1-line-height;
+    font-size: 4.5rem;
+    line-height: 4.25rem;
     margin: 2rem 0 1rem;
+    @media (min-width: $desktop) {
+        font-size: 6rem;
+        line-height: 5.5rem;
+    }
 }
 
 h2 {
     font-size: 3rem;
     line-height: 2.75rem;
     margin: 0 0 1.5rem;
+    @media (min-width: $desktop) {
+        font-size: 4rem;
+        line-height: 3.75rem;
+        margin-bottom: 2rem;
+    }
 }
 
 h3 {
@@ -112,7 +118,7 @@ section {
     width: 100%;
     margin: 0 auto;
     @media (min-width: $desktop) {
-        max-width: 72rem;
+        max-width: 80rem;
     }
 }
 
@@ -154,6 +160,8 @@ section {
     box-shadow: 0rem 0.25rem 0rem rgba($brand, 0.2);
     @media (min-width: $desktop) {
         display: inline-block;
+        padding: 1.5rem 2rem;
+        font-size: 1.1rem;
     }
     &:hover {
         background: linear-gradient(to right, mix(white, $brand, 2%) 0%, $brand 100%);
@@ -198,6 +206,9 @@ section {
 
 .highlight {
     min-height: 3.5rem;
+    @media (min-width: $desktop) {
+        min-height: 4.5rem;
+    }
 }
 
 .highlight, .highlight span {
@@ -229,17 +240,21 @@ header {
     .hero-content {
         h1 + p {
             margin: 0;
+            font-size: 1.5rem;
         }
         .highlight {
-            display: inline-block;
+            display: block;
             position: relative;
-            width: 310px;
+            width: 100%;
             height: 5rem;
             overflow: hidden;
             vertical-align: middle;
-            text-align: left;
-            @media (max-width: $mobile) {
-                text-align: center;
+            text-align: center;
+            @media (min-width: $desktop) {
+                display: inline-block;
+                height: 6.5rem;
+                width: 400px;
+                text-align: left;
             }
             span {
                 display: block;
@@ -249,9 +264,11 @@ header {
                 opacity: 0;
                 transform: translateY(100%);
                 animation: rotateWords 6s infinite ease-in-out;
-                text-align: left;
-                @media (max-width: $mobile) {
-                    text-align: center;
+                text-align: center;  
+                @media (min-width: $desktop) {
+                    display: inline-block;
+                    height: 6.5rem;
+                    text-align: left;
                 }
                 &:nth-child(1) { animation-delay: 0s; }
                 &:nth-child(2) { animation-delay: 2s; }
