@@ -240,7 +240,12 @@ header {
     .hero-content {
         h1 + p {
             margin: 0;
-            font-size: 1.5rem;
+            @media (min-width: $desktop) {
+                max-width: 70%;
+                margin: 0 auto;
+                font-size: 1.5rem;
+                line-height: 2.2rem;
+            }
         }
         .highlight {
             display: block;
@@ -380,6 +385,9 @@ header {
             }
             @media (min-width: $desktop) {
                 margin: 0;
+            }
+            @media (max-width: $desktop) {
+                padding-bottom: 1.5rem;
             }
         }
 

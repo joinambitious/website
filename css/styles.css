@@ -225,7 +225,14 @@ header .logo {
 }
 .hero .hero-content h1 + p {
   margin: 0;
-  font-size: 1.5rem;
+}
+@media (min-width: 48em) {
+  .hero .hero-content h1 + p {
+    max-width: 70%;
+    margin: 0 auto;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+  }
 }
 .hero .hero-content .highlight {
   display: block;
@@ -372,6 +379,11 @@ header .logo {
 @media (min-width: 48em) {
   .structure .steps .step {
     margin: 0;
+  }
+}
+@media (max-width: 48em) {
+  .structure .steps .step {
+    padding-bottom: 1.5rem;
   }
 }
 
