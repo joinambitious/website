@@ -271,12 +271,6 @@ button.button-disabled, .button.button-disabled, .testimonials .button-disabled.
   pointer-events: none;
 }
 
-@media (min-width: 48em) {
-  .desktop-center {
-    text-align: center;
-  }
-}
-
 .tag {
   display: inline-block;
   background: rgba(247, 162, 120, 0.15);
@@ -284,18 +278,22 @@ button.button-disabled, .button.button-disabled, .testimonials .button-disabled.
   padding: 0rem 0.75rem;
   border-radius: 0.25rem;
 }
+.tag .material-symbols-outlined {
+  font-size: 1.2rem;
+  vertical-align: sub;
+}
 
-.box, #join-form, .faq-item, .partners .partner-logos, .benefits ul li, .testimonials .testimonial, .structure .steps .step, .hero .hero-video {
+.box, #join-form, .faq-item, .partners .partner-logos, .benefits ul li, .testimonials .testimonial, .structure .steps .step, .use-cases-wrapper .use-cases .use-case, .hero .hero-video {
   border: 1px solid rgba(46, 46, 58, 0.06);
   border-radius: 0.5rem;
   background: rgba(46, 46, 58, 0.02);
   padding: 1rem;
 }
-.box h3 + p, #join-form h3 + p, .faq-item h3 + p, .partners .partner-logos h3 + p, .benefits ul li h3 + p, .testimonials .testimonial h3 + p, .structure .steps .step h3 + p, .hero .hero-video h3 + p, .box #form-steps-container .form-step > label + p, #join-form #form-steps-container .form-step > label + p, .faq-item #form-steps-container .form-step > label + p, .partners .partner-logos #form-steps-container .form-step > label + p, .benefits ul li #form-steps-container .form-step > label + p, .testimonials .testimonial #form-steps-container .form-step > label + p, .structure .steps .step #form-steps-container .form-step > label + p, .hero .hero-video #form-steps-container .form-step > label + p, #form-steps-container .box .form-step > label + p, #form-steps-container #join-form .form-step > label + p, #form-steps-container .faq-item .form-step > label + p, #form-steps-container .partners .partner-logos .form-step > label + p, .partners #form-steps-container .partner-logos .form-step > label + p, #form-steps-container .benefits ul li .form-step > label + p, .benefits ul #form-steps-container li .form-step > label + p, #form-steps-container .testimonials .testimonial .form-step > label + p, .testimonials #form-steps-container .testimonial .form-step > label + p, #form-steps-container .structure .steps .step .form-step > label + p, .structure .steps #form-steps-container .step .form-step > label + p, #form-steps-container .hero .hero-video .form-step > label + p, .hero #form-steps-container .hero-video .form-step > label + p {
+.box h3 + p, #join-form h3 + p, .faq-item h3 + p, .partners .partner-logos h3 + p, .benefits ul li h3 + p, .testimonials .testimonial h3 + p, .structure .steps .step h3 + p, .use-cases-wrapper .use-cases .use-case h3 + p, .hero .hero-video h3 + p, .box #form-steps-container .form-step > label + p, #join-form #form-steps-container .form-step > label + p, .faq-item #form-steps-container .form-step > label + p, .partners .partner-logos #form-steps-container .form-step > label + p, .benefits ul li #form-steps-container .form-step > label + p, .testimonials .testimonial #form-steps-container .form-step > label + p, .structure .steps .step #form-steps-container .form-step > label + p, .use-cases-wrapper .use-cases .use-case #form-steps-container .form-step > label + p, .hero .hero-video #form-steps-container .form-step > label + p, #form-steps-container .box .form-step > label + p, #form-steps-container #join-form .form-step > label + p, #form-steps-container .faq-item .form-step > label + p, #form-steps-container .partners .partner-logos .form-step > label + p, .partners #form-steps-container .partner-logos .form-step > label + p, #form-steps-container .benefits ul li .form-step > label + p, .benefits ul #form-steps-container li .form-step > label + p, #form-steps-container .testimonials .testimonial .form-step > label + p, .testimonials #form-steps-container .testimonial .form-step > label + p, #form-steps-container .structure .steps .step .form-step > label + p, .structure .steps #form-steps-container .step .form-step > label + p, #form-steps-container .use-cases-wrapper .use-cases .use-case .form-step > label + p, .use-cases-wrapper .use-cases #form-steps-container .use-case .form-step > label + p, #form-steps-container .hero .hero-video .form-step > label + p, .hero #form-steps-container .hero-video .form-step > label + p {
   margin: 1rem 0 0;
 }
 @media (min-width: 48em) {
-  .box, #join-form, .faq-item, .partners .partner-logos, .benefits ul li, .testimonials .testimonial, .structure .steps .step, .hero .hero-video {
+  .box, #join-form, .faq-item, .partners .partner-logos, .benefits ul li, .testimonials .testimonial, .structure .steps .step, .use-cases-wrapper .use-cases .use-case, .hero .hero-video {
     padding: 2rem 1.5rem;
   }
 }
@@ -314,6 +312,12 @@ button.button-disabled, .button.button-disabled, .testimonials .button-disabled.
   background: linear-gradient(to right, rgb(248.92, 184.32, 152.4) 0%, #F7A278 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 48em) {
+  .desktop-center {
+    text-align: center;
+  }
 }
 
 header .logo {
@@ -342,12 +346,20 @@ header .logo {
     transform: translateY(-100%);
   }
 }
+.hero {
+  padding-bottom: 1.5rem;
+}
+@media (min-width: 48em) {
+  .hero {
+    padding-bottom: 3rem;
+  }
+}
 .hero .hero-content h1 + p {
   margin: 0;
 }
 @media (min-width: 48em) {
   .hero .hero-content h1 + p {
-    max-width: 70%;
+    max-width: 40rem;
     margin: 0 auto;
     font-size: 1.5rem;
     line-height: 2.2rem;
@@ -357,6 +369,7 @@ header .logo {
   display: block;
   position: relative;
   width: 100%;
+  margin: 0 auto;
   height: 5rem;
   overflow: hidden;
   vertical-align: middle;
@@ -364,10 +377,7 @@ header .logo {
 }
 @media (min-width: 48em) {
   .hero .hero-content .highlight {
-    display: inline-block;
     height: 6.5rem;
-    width: 400px;
-    text-align: left;
   }
 }
 .hero .hero-content .highlight span {
@@ -382,9 +392,7 @@ header .logo {
 }
 @media (min-width: 48em) {
   .hero .hero-content .highlight span {
-    display: inline-block;
     height: 6.5rem;
-    text-align: left;
   }
 }
 .hero .hero-content .highlight span:nth-child(1) {
@@ -432,6 +440,29 @@ header .logo {
 .features-grid .material-symbols-outlined, .structure .material-symbols-outlined, .partners .material-symbols-outlined {
   font-size: 3rem;
   font-variation-settings: "opsz" 48;
+}
+
+.use-cases-wrapper {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+}
+.use-cases-wrapper .use-cases {
+  display: flex;
+  gap: 0.5rem;
+  width: max-content;
+  padding-left: 1.5rem;
+}
+@media (min-width: 48em) {
+  .use-cases-wrapper .use-cases {
+    gap: 1.5rem;
+    padding-left: calc((100vw - 80rem) / 2);
+  }
+}
+.use-cases-wrapper .use-cases .use-case .material-symbols-outlined {
+  color: #F7A278;
+  vertical-align: middle;
+  margin-right: 0.5rem;
 }
 
 /*

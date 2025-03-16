@@ -28,9 +28,33 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-// Testimonials Carousel
 document.addEventListener("DOMContentLoaded", function () {
+
+    // Use Cases Carousel
+    const wrapper = document.querySelector('.use-cases-wrapper');
+    const container = document.querySelector('.use-cases');
+
+    // Ensure container is wide enough to scroll
+    let speed = 1; // pixels per frame
+    let scrollAmount = 0;
+
+    function animate() {
+        scrollAmount += speed;
+
+        // If we've scrolled to the end, reset to the beginning
+        if (scrollAmount >= container.scrollWidth - wrapper.offsetWidth) {
+            scrollAmount = 0;
+        }
+
+        wrapper.scrollLeft = scrollAmount;
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+
+    // Testimonials Carousel
     const carousel = document.querySelector(".carousel");
     const prevBtn = document.querySelector(".carousel-btn.left");
     const nextBtn = document.querySelector(".carousel-btn.right");

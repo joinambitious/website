@@ -10,10 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
       options: ['More focus', 'Better clarity', 'New community', 'Launching something']
     },
     {
-      title: 'Your Name',
-      description: 'What’s your full name?',
-      name: 'name',
-      type: 'text'
+      title: 'Identify your blockers.',
+      description: 'What feels challenging?',
+      name: 'referral',
+      type: 'radio',
+      options: ['I don\'t know how to start', 'I haven\'t set a clear goal', 'I don\'t have a solid plan', 'I can\'t do it alone']
     },
     {
       title: 'Email Address',
