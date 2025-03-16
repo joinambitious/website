@@ -42,8 +42,8 @@ html, body {
 
 body, input, textarea {
     font-family: $font-primary;
-    font-size: 1.25rem;
     font-weight: 400;
+    font-size: 1.25rem;
     line-height: 1.75rem;
     letter-spacing: -0.01em;
     color: $dark;
@@ -128,17 +128,28 @@ form {
 input, textarea, .radio-option {
     width: 100%;
     color: $dark;
-    padding: 1.2rem;
+    padding: 1rem;
     background: $light;
-    border: 1px solid rgba($dark, 0.2);
+    border: 1px solid rgba($dark, 0.1);
     border-radius: $border-radius;
     margin-top: $spacer-sm;
     box-sizing: border-box;
+    @media (max-width: $desktop) {
+        font-size: 1rem;
+        line-height: 1.4rem;
+    }
+    @media (min-width: $desktop) {
+        padding: 1.2rem;
+    }
 }
 
 input[type='radio'] {
     width: auto;
     display: none;
+}
+
+textarea {
+    min-height: 16rem;
 }
 
 input:focus,
@@ -189,7 +200,6 @@ select:focus,
 }
 
 .form-navigation {
-    margin-top: $spacer-xs;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -706,23 +716,20 @@ header {
 
 .join {
     padding-top: $spacer-sm;
-    padding-bottom: $spacer-md;
+    padding-bottom: $spacer-lg;
     @media (min-width: $desktop) {
         padding-top: $spacer-lg;
-        padding-bottom: $spacer-lg;
     }
 }
 
 #join-form {
     @extend .box;
     margin: 0 auto;
+    padding-top: 1.8rem;
+    padding-bottom: $spacer-sm;
     @media (min-width: $desktop) {
         padding: $spacer-lg;
         max-width: 32rem;
-    }
-    @media (max-width: $desktop) {
-        padding-top: 1.75rem;
-        padding-bottom: $spacer-sm;
     }
 }
 

@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // STEP 1: Define your form questions
   const formQuestions = [
     {
-      title: 'How did you hear about us?',
-      description: 'Tell us more.',
+      title: 'Set your objective.',
+      description: 'What would progress look like?',
       name: 'referral',
       type: 'radio',
-      options: ['Friend', 'Twitter', 'Newsletter', 'Other']
+      options: ['More focus', 'Better clarity', 'New community', 'Launching something']
     },
     {
       title: 'Your Name',
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       title: 'Ambition',
-      description: 'Describe the goal you want to work toward.',
+      description: 'Describe the goal you want to work towards.',
       name: 'goal',
       type: 'textarea'
     }
