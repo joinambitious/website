@@ -705,12 +705,11 @@ header {
 // JOIN
 
 .join {
-    padding-top: $spacer-md;
-    @media (max-width: $desktop) {
-        padding-bottom: $spacer-md;
-    }
+    padding-top: $spacer-sm;
+    padding-bottom: $spacer-md;
     @media (min-width: $desktop) {
         padding-top: $spacer-lg;
+        padding-bottom: $spacer-lg;
     }
 }
 
@@ -720,6 +719,10 @@ header {
     @media (min-width: $desktop) {
         padding: $spacer-lg;
         max-width: 32rem;
+    }
+    @media (max-width: $desktop) {
+        padding-top: 1.75rem;
+        padding-bottom: $spacer-sm;
     }
 }
 

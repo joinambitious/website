@@ -657,16 +657,13 @@ header .logo {
 }
 
 .join {
-  padding-top: 3rem;
-}
-@media (max-width: 48em) {
-  .join {
-    padding-bottom: 3rem;
-  }
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
 }
 @media (min-width: 48em) {
   .join {
     padding-top: 6rem;
+    padding-bottom: 6rem;
   }
 }
 
@@ -677,6 +674,12 @@ header .logo {
   #join-form {
     padding: 6rem;
     max-width: 32rem;
+  }
+}
+@media (max-width: 48em) {
+  #join-form {
+    padding-top: 1.75rem;
+    padding-bottom: 1.5rem;
   }
 }
 
