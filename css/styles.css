@@ -8,6 +8,15 @@ html, body {
   padding: 0;
 }
 
+body, input, textarea {
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.75rem;
+  letter-spacing: -0.01em;
+  color: #2E2E3A;
+}
+
 body {
   background-color: #F8F7F9;
   background-image: url("../img/circle-grid-bg.svg");
@@ -15,12 +24,6 @@ body {
   background-size: auto;
   min-height: 100vh;
   padding: 2rem 1.5rem 3rem;
-  color: #2E2E3A;
-  font-family: "DM Sans", sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.75rem;
-  letter-spacing: -0.01em;
   text-align: center;
 }
 @media (min-width: 48em) {
@@ -38,7 +41,7 @@ a:hover {
   background: rgba(247, 162, 120, 0.15);
 }
 
-h1, h2, h3 {
+h1, h2, h3, #form-steps-container .form-step > label {
   font-weight: 500;
   letter-spacing: -0.03em;
 }
@@ -68,7 +71,7 @@ h2 {
   }
 }
 
-h3 {
+h3, #form-steps-container .form-step > label {
   margin: 1rem 0 0.5rem;
   font-size: 1.75rem;
   line-height: 1.875rem;
@@ -90,6 +93,96 @@ section {
   }
 }
 
+form {
+  text-align: left;
+  position: relative;
+}
+
+input, textarea, .radio-option {
+  width: 100%;
+  color: #2E2E3A;
+  padding: 1.2rem;
+  background: #F8F7F9;
+  border: 1px solid rgba(46, 46, 58, 0.2);
+  border-radius: 0.5rem;
+  margin-top: 1.5rem;
+  box-sizing: border-box;
+}
+
+input[type=radio] {
+  width: auto;
+  display: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.radio-option.selected {
+  outline: none;
+  border: 1px solid #F7A278;
+}
+
+.radio-option {
+  cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+.radio-option + .radio-option {
+  margin-top: 0.5rem;
+}
+.radio-option label {
+  cursor: pointer;
+}
+.radio-option:hover {
+  color: #F7A278;
+  border-color: #F7A278;
+}
+.radio-option.selected {
+  color: #F7A278;
+  background-color: rgba(247, 162, 120, 0.1);
+}
+
+#form-steps-container .form-step {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+#form-steps-container .form-step > label {
+  display: block;
+  margin-top: 0;
+}
+#form-steps-container .form-step.active {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.form-navigation {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.progress-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 4px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #F7A278;
+  transition: width 0.3s ease;
+}
+
 .container {
   width: 100%;
   margin: 0 auto;
@@ -104,8 +197,10 @@ section {
   display: block;
   height: 48px;
   width: 48px;
-  background: url("../img/ambitious-logo_48.svg");
   background-size: 100%;
+}
+.logo, .logo:hover {
+  background: url("../img/ambitious-logo_48.svg");
 }
 
 .material-symbols-outlined {
@@ -114,14 +209,14 @@ section {
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
 }
 
-.button, .testimonials .carousel-btn, .tag {
+.button, .testimonials .carousel-btn, .form-navigation button, .tag {
   font-family: "DM Mono", monospace;
   font-weight: 500;
   text-transform: uppercase;
   font-size: 0.875rem;
 }
 
-.button, .testimonials .carousel-btn {
+button, .button, .testimonials .carousel-btn, .form-navigation button {
   position: relative;
   display: block;
   position: relative;
@@ -132,24 +227,34 @@ section {
   border-radius: 0.5rem;
   background: linear-gradient(to right, rgb(248.28, 176.88, 141.6) 0%, #F7A278 100%);
   box-shadow: 0rem 0.25rem 0rem rgba(247, 162, 120, 0.2);
+  cursor: pointer;
 }
 @media (min-width: 48em) {
-  .button, .testimonials .carousel-btn {
+  button, .button, .testimonials .carousel-btn, .form-navigation button {
     display: inline-block;
     padding: 1.5rem 2rem;
     font-size: 1.1rem;
   }
 }
-.button:hover, .testimonials .carousel-btn:hover {
+button:hover, .button:hover, .testimonials .carousel-btn:hover {
   background: linear-gradient(to right, rgb(247.16, 163.86, 122.7) 0%, #F7A278 100%);
   border-color: #F7A278;
   box-shadow: 0rem 0.25rem 0rem rgba(247, 162, 120, 0.4);
 }
-.button .material-symbols-outlined, .testimonials .carousel-btn .material-symbols-outlined {
+button .material-symbols-outlined, .button .material-symbols-outlined, .testimonials .carousel-btn .material-symbols-outlined {
   display: inline-block;
   vertical-align: middle;
   margin-left: 0.5rem;
   font-variation-settings: "wght" 400;
+}
+button.button-secondary, .button.button-secondary, .testimonials .button-secondary.carousel-btn {
+  background: none;
+  color: #F7A278;
+}
+button.button-disabled, .button.button-disabled, .testimonials .button-disabled.carousel-btn {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 @media (min-width: 48em) {
@@ -166,17 +271,17 @@ section {
   border-radius: 0.25rem;
 }
 
-.box, .faq-item, .partners .partner-logos, .benefits ul li, .testimonials .testimonial, .structure .steps .step, .hero .hero-video {
+.box, #join-form, .faq-item, .partners .partner-logos, .benefits ul li, .testimonials .testimonial, .structure .steps .step, .hero .hero-video {
   border: 1px solid rgba(46, 46, 58, 0.06);
   border-radius: 0.5rem;
   background: rgba(46, 46, 58, 0.02);
   padding: 1rem;
 }
-.box h3 + p, .faq-item h3 + p, .partners .partner-logos h3 + p, .benefits ul li h3 + p, .testimonials .testimonial h3 + p, .structure .steps .step h3 + p, .hero .hero-video h3 + p {
+.box h3 + p, #join-form h3 + p, .faq-item h3 + p, .partners .partner-logos h3 + p, .benefits ul li h3 + p, .testimonials .testimonial h3 + p, .structure .steps .step h3 + p, .hero .hero-video h3 + p, .box #form-steps-container .form-step > label + p, #join-form #form-steps-container .form-step > label + p, .faq-item #form-steps-container .form-step > label + p, .partners .partner-logos #form-steps-container .form-step > label + p, .benefits ul li #form-steps-container .form-step > label + p, .testimonials .testimonial #form-steps-container .form-step > label + p, .structure .steps .step #form-steps-container .form-step > label + p, .hero .hero-video #form-steps-container .form-step > label + p, #form-steps-container .box .form-step > label + p, #form-steps-container #join-form .form-step > label + p, #form-steps-container .faq-item .form-step > label + p, #form-steps-container .partners .partner-logos .form-step > label + p, .partners #form-steps-container .partner-logos .form-step > label + p, #form-steps-container .benefits ul li .form-step > label + p, .benefits ul #form-steps-container li .form-step > label + p, #form-steps-container .testimonials .testimonial .form-step > label + p, .testimonials #form-steps-container .testimonial .form-step > label + p, #form-steps-container .structure .steps .step .form-step > label + p, .structure .steps #form-steps-container .step .form-step > label + p, #form-steps-container .hero .hero-video .form-step > label + p, .hero #form-steps-container .hero-video .form-step > label + p {
   margin: 1rem 0 0;
 }
 @media (min-width: 48em) {
-  .box, .faq-item, .partners .partner-logos, .benefits ul li, .testimonials .testimonial, .structure .steps .step, .hero .hero-video {
+  .box, #join-form, .faq-item, .partners .partner-logos, .benefits ul li, .testimonials .testimonial, .structure .steps .step, .hero .hero-video {
     padding: 2rem 1.5rem;
   }
 }
@@ -296,11 +401,11 @@ header .logo {
     max-width: 75%;
   }
 }
-.hero .hero-video .button, .hero .hero-video .testimonials .carousel-btn, .testimonials .hero .hero-video .carousel-btn {
+.hero .hero-video .button, .hero .hero-video .testimonials .carousel-btn, .testimonials .hero .hero-video .carousel-btn, .hero .hero-video .form-navigation button, .form-navigation .hero .hero-video button {
   margin-top: 1rem;
 }
 @media (min-width: 48em) {
-  .hero .hero-video .button, .hero .hero-video .testimonials .carousel-btn, .testimonials .hero .hero-video .carousel-btn {
+  .hero .hero-video .button, .hero .hero-video .testimonials .carousel-btn, .testimonials .hero .hero-video .carousel-btn, .hero .hero-video .form-navigation button, .form-navigation .hero .hero-video button {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -549,6 +654,30 @@ header .logo {
 .faq-item.active .faq-answer {
   opacity: 1;
   padding-top: 1.5rem;
+}
+
+.join {
+  padding-top: 3rem;
+}
+@media (max-width: 48em) {
+  .join {
+    padding-bottom: 3rem;
+  }
+}
+@media (min-width: 48em) {
+  .join {
+    padding-top: 6rem;
+  }
+}
+
+#join-form {
+  margin: 0 auto;
+}
+@media (min-width: 48em) {
+  #join-form {
+    padding: 6rem;
+    max-width: 32rem;
+  }
 }
 
 footer {
