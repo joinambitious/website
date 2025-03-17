@@ -3,30 +3,68 @@ document.addEventListener('DOMContentLoaded', () => {
   // STEP 1: Define your form questions
   const formQuestions = [
     {
-      title: 'Set your objective.',
-      description: 'What would progress look like?',
-      name: 'referral',
+      title: 'Choose your focus.',
+      description: 'What brings you to Ambitious?',
+      name: 'focus',
       type: 'radio',
-      options: ['More focus', 'Better clarity', 'New community', 'Launching something']
+      options: [
+        'Build a product',
+        'Launch a project',
+        'Grow an audience',
+        'Creative pursuit',
+        'Something else'
+      ],
+      icons: [
+        'interests',
+        'rocket_launch',
+        'diversity_1',
+        'star_shine',
+        'emoji_objects'
+      ]
+    },
+    {
+      title: 'Set your objective.',
+      description: 'What would progress look like this month?',
+      name: 'objective',
+      type: 'radio',
+      options: [
+        'Clarify the direction',
+        'Validate my idea',
+        'Improve my routine', 
+        'Complete a milestone',
+        'Ship something'
+      ],
+      icons: [
+        'explore',
+        'verified',
+        'early_on',
+        'fact_check',
+        'box'
+      ]
+    },
+    {
+      title: 'Clarify your motivation.',
+      description: 'Why is this important to you?',
+      name: 'motivation',
+      type: 'textarea'
     },
     {
       title: 'Identify your blockers.',
       description: 'What feels challenging?',
-      name: 'referral',
+      name: 'blockers',
       type: 'radio',
-      options: ['I don\'t know how to start', 'I haven\'t set a clear goal', 'I don\'t have a solid plan', 'I can\'t do it alone']
+      options: [
+        'I haven\'t decided how to start', 
+        'I haven\'t set a clear goal', 
+        'I haven\'t designed a solid plan', 
+        'I haven\'t had group accountability'
+      ]
     },
     {
       title: 'Email Address',
       description: 'Where can we reach you?',
       name: 'email',
       type: 'email'
-    },
-    {
-      title: 'Ambition',
-      description: 'Describe the goal you want to work towards.',
-      name: 'goal',
-      type: 'textarea'
     }
   ];
 
@@ -66,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       stepDiv.appendChild(textarea);
 
     } else if (question.type === 'radio') {
-      question.options.forEach(option => {
+      question.options.forEach((option, index) => {
         const radioWrapper = document.createElement('div');
         radioWrapper.classList.add('radio-option');
 
@@ -78,7 +116,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const radioLabel = document.createElement('label');
         radioLabel.setAttribute('for', radioInput.id);
-        radioLabel.textContent = option;
+
+        // Create the optional icon span
+        const iconName = question.icons && question.icons[index];
+        if (iconName) {
+          const iconSpan = document.createElement('span');
+          iconSpan.classList.add('material-symbols-outlined');
+          iconSpan.textContent = iconName;
+          radioLabel.appendChild(iconSpan);
+        }
+
+        // Add the text label after the icon
+        const labelText = document.createElement('span');
+        labelText.classList.add('label-text');
+        labelText.textContent = option;
+
+        radioLabel.appendChild(labelText);
 
         radioWrapper.appendChild(radioInput);
         radioWrapper.appendChild(radioLabel);
