@@ -263,7 +263,6 @@ select:focus,
     font-family: $font-secondary;
     font-weight: 500;
     text-transform: uppercase;
-    font-size: 0.875rem;
 }
 
 
@@ -272,9 +271,9 @@ select:focus,
 button, .button {
     position: relative;
     display: block;
-    position: relative;
     margin-top: $spacer-sm;
-    padding: 1rem 1.5rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
     color: $light;
     border: $border-style;
     border-radius: $border-radius;
@@ -283,7 +282,7 @@ button, .button {
     cursor: pointer;
     @media (min-width: $desktop) {
         display: inline-block;
-        padding: 1.5rem 2rem;
+        padding: 1.25rem 1.5rem;
         font-size: 1.1rem;
     }
     &:hover {
@@ -294,7 +293,7 @@ button, .button {
     .material-symbols-outlined {
         display: inline-block;
         vertical-align: middle;
-        margin-left: 0.5rem;
+        margin-left: 0.25rem;
         font-variation-settings:
         'wght' 400,
     }
@@ -315,6 +314,7 @@ button, .button {
     color: $brand;
     padding: 0rem 0.75rem;
     border-radius: 0.25rem;
+    font-size: 0.875rem;
     .material-symbols-outlined {
         font-size: 1.2rem;
         vertical-align: sub;
@@ -379,48 +379,45 @@ header {
     @media (min-width: $desktop) {
         padding-bottom: $spacer-md;
     }  
-    .hero-content {
-        h1 + p {
-            margin: 0;
-            @media (min-width: $desktop) {
-                max-width: 40rem;
-                margin: 0 auto;
-                font-size: 1.5rem;
-                line-height: 2.2rem;
-            }
-        }
-        .highlight {
-            display: block;
-            position: relative;
-            width: 100%;
+    h1 + p {
+        margin: 0;
+        @media (min-width: $desktop) {
+            max-width: 40rem;
             margin: 0 auto;
+            font-size: 1.5rem;
+            line-height: 2.2rem;
+        }
+    }
+    .highlight {
+        display: block;
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        height: 5rem;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+        @media (min-width: $desktop) {
+            height: 6.5rem;
+        }
+        span {
+            display: block;
+            position: absolute;
             height: 5rem;
-            overflow: hidden;
-            vertical-align: middle;
-            text-align: center;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(100%);
+            animation: rotateWords 6s infinite ease-in-out;
+            text-align: center;  
             @media (min-width: $desktop) {
                 height: 6.5rem;
             }
-            span {
-                display: block;
-                position: absolute;
-                height: 5rem;
-                width: 100%;
-                opacity: 0;
-                transform: translateY(100%);
-                animation: rotateWords 6s infinite ease-in-out;
-                text-align: center;  
-                @media (min-width: $desktop) {
-                    height: 6.5rem;
-                }
-                &:nth-child(1) { animation-delay: 0s; }
-                &:nth-child(2) { animation-delay: 2s; }
-                &:nth-child(3) { animation-delay: 4s; }
-            }
-        }   
-    }
+            &:nth-child(1) { animation-delay: 0s; }
+            &:nth-child(2) { animation-delay: 2s; }
+            &:nth-child(3) { animation-delay: 4s; }
+        }
+    }   
     .hero-video {
-        @extend .box;
         position: relative;
         margin-top: $spacer-sm;
         @media (min-width: $desktop) {
@@ -435,20 +432,19 @@ header {
             }  
         }
         .button {
-            margin-top: 1rem;
+            z-index: 10;
             @media (min-width: $desktop) {
                 position: absolute;
                 left: 50%;
                 top: 50%;
                 margin: 0;
                 transform: translate(-50%, -50%);
-                z-index: 10;
             } 
         }
     }
 }
 
-.features-grid, .structure, .partners {
+.structure, .partners {
     .material-symbols-outlined {
         font-size: 3rem;
         font-variation-settings:
@@ -481,54 +477,6 @@ header {
         }
     }
 }
-
-/*
-.features-grid {
-    @media (min-width: $desktop) {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: $spacer-sm;   
-    }
-    .feature {
-        margin-bottom: $spacer-xs;
-        @extend .box;
-        &:before {
-            display: block;
-            height: 240px;
-            width: 100%;
-            border-radius: $border-radius;
-            content: "";
-            background-size: cover;
-            background-position: center;
-            margin-bottom: 1rem;
-        }
-        @media (min-width: $desktop) {
-            margin: 0;
-        }
-    }
-    .feature-sleep:before {
-        background-image: url('../img/sleep.jpg');
-    }
-
-    .feature-nutrition:before {
-        background-image: url('../img/nutrition.jpg');
-    }
-
-    .feature-movement:before {
-        background-image: url('../img/movement.jpg');
-    }
-
-    .feature-social:before {
-        background-image: url('../img/social.jpg');
-    }
-    .feature-focus:before {
-        background-image: url('../img/focus.jpg');
-    }
-    .feature-balance:before {
-        background-image: url('../img/balance.jpg');
-    }
-}
-*/
 
 
 // STRUCTURE
