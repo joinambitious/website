@@ -1,12 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-  // ✅ Reset localStorage if user came from index.html (fresh start)
   if (document.referrer.includes('index.html')) {
     localStorage.removeItem('formState');
     localStorage.removeItem('currentStep');
   }
 
-  // === FORM QUESTIONS ===
   const formQuestions = [
     {
       title: 'Choose your focus',
@@ -20,13 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Creative pursuit',
         'Something else'
       ],
-      icons: [
-        'interests',
-        'rocket_launch',
-        'diversity_1',
-        'star_shine',
-        'emoji_objects'
-      ]
+      icons: ['interests', 'rocket_launch', 'diversity_1', 'star_shine', 'emoji_objects']
     },
     {
       title: 'Set your objective',
@@ -40,13 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Complete a milestone',
         'Ship something'
       ],
-      icons: [
-        'explore',
-        'verified',
-        'early_on',
-        'fact_check',
-        'box'
-      ]
+      icons: ['explore', 'verified', 'early_on', 'fact_check', 'box']
     },
     {
       title: 'Clarify your motivation',
@@ -77,16 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'Select a plan to start your 14-day trial.',
       name: 'plan',
       type: 'radio',
-      options: [
-        'Monthly',
-        'Quarterly',
-        'Annual'
-      ],
-      icons: [
-        'calendar_today',
-        'date_range',
-        'calendar_month'
-      ]
+      options: ['Monthly', 'Quarterly', 'Annual'],
+      icons: ['calendar_today', 'date_range', 'calendar_month']
     }
   ];
 
@@ -107,15 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
   const submitBtn = document.getElementById('submit-btn');
+  const progressBar = document.getElementById('progress-bar');
+
   const steps = [];
 
-  // === STATE ===
   let formState = JSON.parse(localStorage.getItem('formState')) || {};
   let currentStep = parseInt(localStorage.getItem('currentStep')) || 0;
-  let maxStepReached = 0;
 
   // === BUILD FORM ===
-  formQuestions.forEach((question, index) => {
+  formQuestions.forEach((question) => {
     const stepDiv = document.createElement('div');
     stepDiv.classList.add('form-step');
 
@@ -124,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     labelEl.textContent = question.title;
     stepDiv.appendChild(labelEl);
 
-    if (question.description && question.description.trim() !== '') {
+    if (question.description) {
       const descEl = document.createElement('div');
       descEl.classList.add('description');
       descEl.textContent = question.description;
@@ -136,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
       textarea.name = question.name;
       textarea.id = question.name;
       textarea.required = true;
-      if (formState[question.name]) textarea.value = formState[question.name];
+      textarea.value = formState[question.name] || '';
       stepDiv.appendChild(textarea);
     } else if (question.type === 'radio') {
       question.options.forEach((option, idx) => {
@@ -149,16 +126,18 @@ document.addEventListener('DOMContentLoaded', () => {
         radioInput.value = option;
         radioInput.id = `${question.name}-${option}`;
 
-        if (formState[question.name] === option) radioInput.checked = true;
+        if (formState[question.name] === option) {
+          radioInput.checked = true;
+          radioWrapper.classList.add('selected');
+        }
 
         const radioLabel = document.createElement('label');
         radioLabel.setAttribute('for', radioInput.id);
 
-        const iconName = question.icons && question.icons[idx];
-        if (iconName) {
+        if (question.icons && question.icons[idx]) {
           const iconSpan = document.createElement('span');
           iconSpan.classList.add('material-symbols-outlined');
-          iconSpan.textContent = iconName;
+          iconSpan.textContent = question.icons[idx];
           radioLabel.appendChild(iconSpan);
         }
 
@@ -177,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
       input.name = question.name;
       input.id = question.name;
       input.required = true;
-      if (formState[question.name]) input.value = formState[question.name];
+      input.value = formState[question.name] || '';
       stepDiv.appendChild(input);
     }
 
@@ -185,56 +164,46 @@ document.addEventListener('DOMContentLoaded', () => {
     steps.push(stepDiv);
   });
 
-  // === SHOW STEP ===
   function showStep(index) {
+    if (index < 0 || index >= steps.length) {
+      console.warn('Invalid step index:', index);
+      currentStep = 0;
+    }
+
     steps.forEach((step, i) => {
-      step.classList.toggle('form-step-active', i === index);
+      step.classList.toggle('form-step-active', i === currentStep);
     });
 
-    validateCurrentStep();
-
-    const currentInputs = steps[currentStep].querySelectorAll('input, textarea, select');
-
-    currentInputs.forEach(input => {
-      const value = formState[input.name];
-
-      if (value !== undefined) {
-        if (input.type === 'radio') {
-          if (input.value === value) {
-            input.checked = true;
-            input.closest('.radio-option').classList.add('selected');
-          } else {
-            input.closest('.radio-option').classList.remove('selected');
-          }
-        } else {
-          input.value = value;
-        }
-      }
-
-      input.addEventListener('input', validateCurrentStep);
-      input.addEventListener('change', validateCurrentStep);
-    });
-
-    prevBtn.style.display = 'inline-block';
-    nextBtn.style.display = index < steps.length - 1 ? 'inline-block' : 'none';
-    submitBtn.style.display = index === steps.length - 1 ? 'inline-block' : 'none';
+    prevBtn.style.display = currentStep === 0 ? 'inline-block' : 'inline-block';
+    nextBtn.style.display = currentStep < steps.length - 1 ? 'inline-block' : 'none';
+    submitBtn.style.display = currentStep === steps.length - 1 ? 'inline-block' : 'none';
 
     updateProgressBar();
 
-    // ✅ Persist current step
+    // Add event listeners to non-radio inputs for live validation
+    const inputs = steps[currentStep].querySelectorAll('textarea, input[type="text"], input[type="email"]');
+
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        saveStepData();
+        validateCurrentStep();
+      });
+    });
+
+    // Validate immediately on showing the step
+    validateCurrentStep();
     localStorage.setItem('currentStep', currentStep);
   }
 
   function updateProgressBar() {
-    const progressBar = document.getElementById('progress-bar');
     if (!progressBar) return;
-    const totalSteps = steps.length;
-    const progressPercent = ((currentStep + 1) / totalSteps) * 100;
+    const progressPercent = ((currentStep + 1) / steps.length) * 100;
     progressBar.style.width = `${progressPercent}%`;
   }
 
   function saveStepData() {
     const inputs = steps[currentStep].querySelectorAll('input, textarea, select');
+
     inputs.forEach(input => {
       if (input.type === 'radio') {
         if (input.checked) {
@@ -246,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     localStorage.setItem('formState', JSON.stringify(formState));
-    localStorage.setItem('currentStep', currentStep);
   }
 
   function validateCurrentStep() {
@@ -281,12 +249,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return re.test(email);
   }
 
-  // === EVENTS ===
   nextBtn.addEventListener('click', () => {
     saveStepData();
     if (currentStep < steps.length - 1) {
       currentStep++;
-      maxStepReached = Math.max(maxStepReached, currentStep);
       showStep(currentStep);
     }
   });
@@ -301,25 +267,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', e => {
     e.preventDefault();
     saveStepData();
 
-    const selectedPlan = document.querySelector('input[name="plan"]:checked');
-    if (!selectedPlan) {
-      alert('Please choose a membership plan to continue.');
+    const selectedPlan = formState.plan;
+    const planValue = planLookup[selectedPlan];
+    const stripeLink = stripeLinks[planValue];
+
+    if (!stripeLink) {
+      alert('Please select a valid membership option.');
       return;
     }
 
-    const planValue = planLookup[selectedPlan.value] || null;
-    if (!planValue || !stripeLinks[planValue]) {
-      alert('Invalid plan selected.');
-      return;
-    }
-
-    const userEmail = formState.email?.trim();
+    const userEmail = formState.email;
     if (!userEmail) {
-      alert('Please enter your email address.');
+      alert('Please provide your email.');
       return;
     }
 
@@ -327,44 +290,31 @@ document.addEventListener('DOMContentLoaded', () => {
     submitBtn.textContent = 'Submitting...';
 
     const formData = new FormData();
-    Object.keys(formState).forEach(key => {
-      formData.append(key, formState[key]);
-    });
+    Object.keys(formState).forEach(key => formData.append(key, formState[key]));
 
     fetch('https://script.google.com/macros/s/AKfycbwuVgEqVRQvAp6MbXwzDIuHhopZeCqwwWPmVPcHy99u7hdGVuBQcMwokqyJYJV1pB4/exec', {
       method: 'POST',
-      body: JSON.stringify(formState),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Form data saved:', data);
+      .then(response => response.text())
+      .then(data => {
+        console.log('Form submission successful:', data);
+        localStorage.removeItem('formState');
+        localStorage.removeItem('currentStep');
 
-      localStorage.removeItem('formState');
-      localStorage.removeItem('currentStep');
-
-      const planValue = planLookup[formState.plan] || null;
-      const userEmail = formState.email?.trim();
-
-      const stripeLinkBase = stripeLinks[planValue];
-      const redirectUrl = `${stripeLinkBase}?prefilled_email=${encodeURIComponent(userEmail)}`;
-
-      setTimeout(() => {
+        const redirectUrl = `${stripeLink}?prefilled_email=${encodeURIComponent(userEmail)}`;
         window.location.href = redirectUrl;
-      }, 500);
-    })
-    .catch(error => {
-      console.error('Form submission error:', error);
-      alert('There was a problem submitting the form.');
-    });
+      })
+      .catch(error => {
+        console.error('Form submission error:', error);
+        alert('There was a problem submitting the form.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      });
   });
 
-  // === CUSTOM RADIO HANDLING ===
   function setupCustomRadios() {
     const radioOptions = document.querySelectorAll('.radio-option');
-
     radioOptions.forEach(option => {
       option.addEventListener('click', () => {
         const radioInput = option.querySelector('input[type="radio"]');
@@ -377,11 +327,13 @@ document.addEventListener('DOMContentLoaded', () => {
         option.classList.add('selected');
         radioInput.checked = true;
         radioInput.dispatchEvent(new Event('change'));
+
+        saveStepData();
+        validateCurrentStep();
       });
     });
   }
 
-  // === INIT ===
   showStep(currentStep);
   setupCustomRadios();
 });
