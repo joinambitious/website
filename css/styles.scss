@@ -291,6 +291,9 @@ select:focus,
     }
     label {
         cursor: pointer;
+        .tag {
+            float: right;
+        }
     }
     .material-symbols-outlined {
         vertical-align: middle;

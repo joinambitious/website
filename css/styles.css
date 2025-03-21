@@ -266,6 +266,9 @@ select:focus,
 .radio-option label {
   cursor: pointer;
 }
+.radio-option label .tag {
+  float: right;
+}
 .radio-option .material-symbols-outlined {
   vertical-align: middle;
   margin-right: 0.5rem;
