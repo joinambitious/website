@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'blockers',
       type: 'radio',
       options: [
-        'I haven\'t decided how to start',
+        'I haven\'t known how to start',
         'I haven\'t set a clear goal',
         'I haven\'t found time to focus',
         'I haven\'t had group support',
@@ -59,19 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     {
-      title: 'Join your group',
-      description: 'What time works best?',
+      title: 'Describe your project',
+      description: 'What are you working on?',
+      name: 'project',
+      type: 'textarea'
+    },
+    {
+      title: 'Meet your group',
+      description: 'What time works best? (PST)',
       name: 'meeting',
       type: 'radio',
       options: [
-        'Fridays at 8am PST',
-        'Fridays at 9am PST',
-        'Wednesdays at 8am PST',
-        'Wednesdays at 9am PST',
+        'Fridays at 8am',
+        'Fridays at 9am',
+        'Wednesdays at 8am',
+        'Wednesdays at 9am',
         'Another time'
       ],
       badges: [
-        'Most popular',
+        'Popular',
         '',
         '',
         '',
@@ -91,16 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
       type: 'email'
     },
     {
-      title: 'Choose your membership',
+      title: 'Start your membership',
       description: 'Try Ambitious free for 2 weeks.',
       name: 'plan',
       type: 'radio',
-      options: ['$19 monthly', '$44 every 3 months', '$159 annually'], // MUST MATCH OPTIONS IN PLANLOOKUP
-      icons: ['calendar_today', 'date_range', 'calendar_month'],
+      options: [
+        '$19 monthly', // MUST MATCH OPTIONS IN PLANLOOKUP
+        '$44 every 3 months', 
+        '$159 annually'],
       badges: [
-        '',              // No badge for Monthly
-        'Save 20%',      // Quarterly badge
-        'Save 30%'       // Annual badge
+        '',              
+        'Save 20%',      
+        'Save 30%'       
       ]
     }
   ];
@@ -177,11 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const radioLabel = document.createElement('label');
       radioLabel.setAttribute('for', radioInput.id);
-      radioLabel.classList.add('radio-label'); // ✅ Optional for flex styles
+      radioLabel.classList.add('radio-label');
 
-      // ✅ ICON + LABEL TEXT container
+      // ICON + LABEL TEXT container
       const labelContent = document.createElement('span');
-      labelContent.classList.add('label-content'); // ✅ Flex container
+      labelContent.classList.add('label-content');
 
       // ICON (optional)
       if (question.icons && question.icons[idx]) {
@@ -350,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting...';
+    submitBtn.classList.add('button-disabled');
 
     const formData = new FormData();
     Object.keys(formState).forEach(key => formData.append(key, formState[key]));

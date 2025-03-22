@@ -166,13 +166,18 @@ button.button-disabled, .button.button-disabled, .testimonials .button-disabled.
   display: inline-block;
   background: rgba(247, 162, 120, 0.15);
   color: #F7A278;
-  padding: 0rem 0.75rem;
+  padding: 0rem 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.875rem;
 }
 .tag .material-symbols-outlined {
   font-size: 1.2rem;
   vertical-align: sub;
+}
+@media (min-width: 48em) {
+  .tag {
+    padding: 0rem 0.75rem;
+  }
 }
 
 .box, #join-form, .faq-item, .partners .partner-logos, .benefits ul li, .testimonials .testimonial, .structure .steps .step, .use-cases-wrapper .use-cases .use-case {
@@ -264,10 +269,13 @@ select:focus,
   margin-top: 0.5rem;
 }
 .radio-option label {
+  display: flex;
   cursor: pointer;
+  align-items: start;
+  justify-content: space-between;
 }
 .radio-option label .tag {
-  float: right;
+  white-space: nowrap;
 }
 .radio-option .material-symbols-outlined {
   vertical-align: middle;

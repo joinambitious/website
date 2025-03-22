@@ -197,12 +197,15 @@ button, .button {
     display: inline-block;
     background: rgba($brand, 0.15);
     color: $brand;
-    padding: 0rem 0.75rem;
+    padding: 0rem 0.5rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
     .material-symbols-outlined {
         font-size: 1.2rem;
         vertical-align: sub;
+    }
+    @media (min-width: $desktop) {
+        padding: 0rem 0.75rem;
     }
 }
 
@@ -290,9 +293,14 @@ select:focus,
         margin-top: $spacer-xs;
     }
     label {
+        display: flex;
         cursor: pointer;
+        align-items: start;
+        justify-content: space-between;
+        .label-content {
+        }
         .tag {
-            float: right;
+            white-space: nowrap;
         }
     }
     .material-symbols-outlined {
