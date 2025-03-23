@@ -97,18 +97,23 @@ document.addEventListener('DOMContentLoaded', () => {
       type: 'email'
     },
     {
-      title: 'Start your membership',
+      title: 'Start for free',
       description: 'Try Ambitious free for 2 weeks.',
       name: 'plan',
       type: 'radio',
       options: [
-        '$19 monthly', // MUST MATCH OPTIONS IN PLANLOOKUP
-        '$44 every 3 months', 
-        '$159 annually'],
+        'Monthly', // MUST MATCH OPTIONS IN PLANLOOKUP
+        'Quarterly', 
+        'Annual'],
       badges: [
-        '',              
+        'Free trial',              
         'Save 20%',      
         'Save 30%'       
+      ],
+      subtexts: [
+        '$19 per month', 
+        '$44 every 3 months', 
+        '$159 per year'
       ]
     }
   ];
@@ -121,9 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // MUST MATCH OPTIONS ABOVE
   const planLookup = {
-    '$19 monthly': 'monthly',
-    '$44 every 3 months': 'quarterly',
-    '$159 annually': 'annual'
+    'Monthly': 'monthly',
+    'Quarterly': 'quarterly',
+    'Annual': 'annual'
   };
 
   const form = document.getElementById('join-form');
@@ -187,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
       radioLabel.setAttribute('for', radioInput.id);
       radioLabel.classList.add('radio-label');
 
-      // ICON + LABEL TEXT container
+      // === ICON + LABEL TEXT + SUBTEXT container ===
       const labelContent = document.createElement('span');
       labelContent.classList.add('label-content');
 
@@ -199,13 +204,21 @@ document.addEventListener('DOMContentLoaded', () => {
         labelContent.appendChild(iconSpan);
       }
 
-      // Label Text
+      // LABEL TEXT (always)
       const labelText = document.createElement('span');
       labelText.classList.add('label-text');
       labelText.textContent = option;
       labelContent.appendChild(labelText);
 
-      // Append the labelContent group to the label
+      // SUBTEXT (optional)
+      if (question.subtexts && question.subtexts[idx]) {
+        const subText = document.createElement('span');
+        subText.classList.add('label-subtext');
+        subText.textContent = question.subtexts[idx];
+        labelContent.appendChild(subText);
+      }
+
+      // Append labelContent group to the label
       radioLabel.appendChild(labelContent);
 
       // BADGE (optional)
@@ -216,6 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
         radioLabel.appendChild(badgeSpan);
       }
 
+      // Assemble
       radioWrapper.appendChild(radioInput);
       radioWrapper.appendChild(radioLabel);
       stepDiv.appendChild(radioWrapper);
@@ -241,17 +255,61 @@ document.addEventListener('DOMContentLoaded', () => {
       currentStep = 0;
     }
 
+    const isLastStep = currentStep === steps.length - 1;
+    const formStepsContainer = document.getElementById('form-steps-container');
+
+    // Toggle active step
     steps.forEach((step, i) => {
       step.classList.toggle('form-step-active', i === currentStep);
     });
 
+    // Add or remove the membership-step class
+    if (isLastStep) {
+      formStepsContainer.classList.add('membership-step');
+
+      const lastStep = steps[currentStep];
+
+      // Check if the perks list already exists
+      if (!lastStep.querySelector('.membership-details')) {
+
+        // Create the <ul>
+        const perksList = document.createElement('ul');
+        perksList.classList.add('membership-details');
+
+        const perks = [
+          '1:1 intro call',
+          'Personalized plan',
+          'Weekly group sessions',
+          'AI insights and guidance'        ];
+
+        perks.forEach(text => {
+          const li = document.createElement('li');
+          li.textContent = text;
+          perksList.appendChild(li);
+        });
+
+        // Find the description element to insert after
+        const descriptionEl = lastStep.querySelector('.description');
+
+        if (descriptionEl) {
+          descriptionEl.insertAdjacentElement('afterend', perksList);
+        } else {
+          lastStep.insertBefore(perksList, lastStep.firstChild);
+        }
+      }
+
+    } else {
+      formStepsContainer.classList.remove('membership-step');
+    }
+
+    // Show/hide navigation buttons
     prevBtn.style.display = currentStep === 0 ? 'inline-block' : 'inline-block';
     nextBtn.style.display = currentStep < steps.length - 1 ? 'inline-block' : 'none';
-    submitBtn.style.display = currentStep === steps.length - 1 ? 'inline-block' : 'none';
+    submitBtn.style.display = isLastStep ? 'inline-block' : 'none';
 
     updateProgressBar();
 
-    // Add event listeners to non-radio inputs for live validation
+    // Add event listeners for validation on non-radio inputs
     const inputs = steps[currentStep].querySelectorAll('textarea, input[type="text"], input[type="email"]');
 
     inputs.forEach(input => {
@@ -261,8 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Validate immediately on showing the step
+    // Validate the current step immediately
     validateCurrentStep();
+
+    // Save current step position to localStorage
     localStorage.setItem('currentStep', currentStep);
   }
 

@@ -195,7 +195,7 @@ button, .button {
 
 .tag {
     display: inline-block;
-    background: rgba($brand, 0.15);
+    background: rgba($brand, 0.1);
     color: $brand;
     padding: 0rem 0.5rem;
     border-radius: 0.25rem;
@@ -295,9 +295,13 @@ select:focus,
     label {
         display: flex;
         cursor: pointer;
-        align-items: start;
+        align-items: center;
         justify-content: space-between;
         .label-content {
+            .label-subtext {
+                display: block;
+                font-size: 1rem;
+            }
         }
         .tag {
             white-space: nowrap;
@@ -313,7 +317,7 @@ select:focus,
     }
     &.selected {
         color: $brand;
-        background-color: rgba($brand, 0.1);
+        background-color: rgba($brand, 0.05);
     }
 }
 
@@ -721,6 +725,24 @@ header {
     @media (min-width: $desktop) {
         padding: $spacer-lg;
         max-width: 32rem;
+    }
+    .membership-details {
+        list-style: none;
+        padding: 0;
+        li {
+            display: flex;
+            align-items: center;
+            &:before {
+                content: 'check_circle';
+                font-family: 'Material Symbols Outlined';
+                margin-right: 0.5rem;
+                color: $brand;
+                display: inline-block;
+                font-variation-settings:
+                'wght' 400,
+                'FILL' 1
+            }
+        }
     }
 }
 

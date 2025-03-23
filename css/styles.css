@@ -164,7 +164,7 @@ button.button-disabled, .button.button-disabled, .testimonials .button-disabled.
 
 .tag {
   display: inline-block;
-  background: rgba(247, 162, 120, 0.15);
+  background: rgba(247, 162, 120, 0.1);
   color: #F7A278;
   padding: 0rem 0.5rem;
   border-radius: 0.25rem;
@@ -271,8 +271,12 @@ select:focus,
 .radio-option label {
   display: flex;
   cursor: pointer;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
+}
+.radio-option label .label-content .label-subtext {
+  display: block;
+  font-size: 1rem;
 }
 .radio-option label .tag {
   white-space: nowrap;
@@ -287,7 +291,7 @@ select:focus,
 }
 .radio-option.selected {
   color: #F7A278;
-  background-color: rgba(247, 162, 120, 0.1);
+  background-color: rgba(247, 162, 120, 0.05);
 }
 
 #form-steps-container .form-step {
@@ -684,6 +688,22 @@ header .logo {
     padding: 6rem;
     max-width: 32rem;
   }
+}
+#join-form .membership-details {
+  list-style: none;
+  padding: 0;
+}
+#join-form .membership-details li {
+  display: flex;
+  align-items: center;
+}
+#join-form .membership-details li:before {
+  content: "check_circle";
+  font-family: "Material Symbols Outlined";
+  margin-right: 0.5rem;
+  color: #F7A278;
+  display: inline-block;
+  font-variation-settings: "wght" 400, "FILL" 1;
 }
 
 footer {
