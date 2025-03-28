@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "vercel": "^41.4.1"
+  },
+  "devDependencies": {
+    "sass": "^1.86.0"
+  },
+  "scripts": {
+    "build": "sass public/css/styles.scss public/css/styles.css"
+  }
+}
